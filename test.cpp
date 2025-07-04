@@ -111,6 +111,8 @@ int main() {
     for (auto state : states) {
       string action = state["mbt::actionTaken"];
       json nondet_picks = state["mbt::nondetPicks"];
+     
+      cout << endl <<  "Ação: " << action << endl <<endl;
 
       string error = "";
 
@@ -189,8 +191,13 @@ int main() {
       } else {
         cout << "Expected Error: " << expected_error << endl;
       }
+
+    
     }
     cout << "----------------------------------------------" << endl << endl << endl;
+
+
+   
   }
   return 0;
 }
