@@ -56,8 +56,7 @@ void printBankState(const BankState& state) {
     if (!first_investment) {
       cout << ", ";
     }
-    cout << "{ID: " << id << ", Owner: " << investment.owner
-         << ", Amount: " << investment.amount << "}";
+    cout << "{ID: " << id << ", Owner: " << investment.owner << ", Amount: " << investment.amount << "}";
     first_investment = false;
   }
   cout << "], ";
@@ -111,6 +110,8 @@ int main() {
     for (auto state : states) {
       string action = state["mbt::actionTaken"];
       json nondet_picks = state["mbt::nondetPicks"];
+     
+      cout << endl <<  "Ação: " << action << endl <<endl;
 
       string error = "";
 
@@ -189,8 +190,17 @@ int main() {
       } else {
         cout << "Expected Error: " << expected_error << endl;
       }
+      if (error != expected_error) {
+        cout << "Assert failed! Error: '" << error << "', Expected: '" << expected_error << "'" << endl;
+        assert(false && "O erro não bate.");
+      }
+
+    
     }
     cout << "----------------------------------------------" << endl << endl << endl;
+
+
+   
   }
   return 0;
 }
