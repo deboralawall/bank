@@ -14,31 +14,39 @@ struct BankState {
 };
 
 string deposit(BankState &bank_state, string depositor, int amount) {
-  bank_state.balances[depositor] += amount;
-  return "";
+  if(amount<=0) return "Amount should be greater than zero";
+  else{
+    bank_state.balances[depositor] += amount;
+    return "";
+  }
 }
 
 string withdraw(BankState &bank_state, string withdrawer, int amount) {
   if (amount <= 0){
     return "Amount should be greater than zero";
   }
-  if (bank_state.balances[withdrawer] < amount){
+  if (bank_state.balances[withdrawer] < amount ){
     return "Balance is too low";
   }else{
     bank_state.balances[withdrawer] -= amount;
+    return "";
+  }
+  
+}
+
+string transfer(BankState &bank_state, string sender, string receiver, int amount) {
+  if(amount<=0) return "Amount should be greater than zero";
+  else if(bank_state.balances[sender] < amount) return "Balance is too low"; 
+  else{
+    bank_state.balances[sender] -= amount;
+    bank_state.balances[receiver] += amount;
   }
   return "";
 }
 
-string transfer(BankState &bank_state, string sender, string receiver,
-                int amount) {
-  bank_state.balances[sender] -= amount;
-  bank_state.balances[receiver] += amount;
-  return "";
-}
-
 string buy_investment(BankState &bank_state, string buyer, int amount) {
-  if(bank_state.balances[buyer] < amount){
+  if(amount <= 0) return "Amount should be greater than zero";
+  else if(bank_state.balances[buyer] < amount){
     return "Balance is too low";
   }else{
     bank_state.balances[buyer] -= amount;
@@ -48,8 +56,12 @@ string buy_investment(BankState &bank_state, string buyer, int amount) {
   return "";
 }
 
-string sell_investment(BankState &bank_state, string seller,
-                       int investment_id) {
-  bank_state.balances[seller] += bank_state.investments[investment_id].amount;
-  return "";
+string sell_investment(BankState &bank_state, string seller, int investment_id) {
+  if(!bank_state.investments.count(investment_id))
+  return "No investment with this id";
+  else{
+      bank_state.balances[seller] += bank_state.investments[investment_id].amount;
+      return "";
+  }
+  
 }
