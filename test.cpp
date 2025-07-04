@@ -56,8 +56,7 @@ void printBankState(const BankState& state) {
     if (!first_investment) {
       cout << ", ";
     }
-    cout << "{ID: " << id << ", Owner: " << investment.owner
-         << ", Amount: " << investment.amount << "}";
+    cout << "{ID: " << id << ", Owner: " << investment.owner << ", Amount: " << investment.amount << "}";
     first_investment = false;
   }
   cout << "], ";
@@ -190,6 +189,10 @@ int main() {
         cout << "No error" << endl;
       } else {
         cout << "Expected Error: " << expected_error << endl;
+      }
+      if (error != expected_error) {
+        cout << "Assert failed! Error: '" << error << "', Expected: '" << expected_error << "'" << endl;
+        assert(false && "O erro não bate.");
       }
 
     
