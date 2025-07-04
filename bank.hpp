@@ -57,10 +57,11 @@ string buy_investment(BankState &bank_state, string buyer, int amount) {
 }
 
 string sell_investment(BankState &bank_state, string seller, int investment_id) {
-  if(!bank_state.investments.count(investment_id))
-  return "No investment with this id";
+  if(!bank_state.investments.count(investment_id)) return "No investment with this id";
+  else if(bank_state.investments[investment_id].owner != seller) return "Seller can't sell an investment they don't own";
   else{
       bank_state.balances[seller] += bank_state.investments[investment_id].amount;
+      bank_state.investments.erase(investment_id);
       return "";
   }
   
